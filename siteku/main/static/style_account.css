@@ -1,0 +1,98 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("./image/high-angle-home-3d-interior-design.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* 100% tinggi viewport */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+
+
+.the_box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 30px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: auto;
+    width: 45%;
+    margin: auto; 
+}
+
+h3{ 
+    margin-top: 16px;
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 12px;
+  }
+
+button {
+    background-color: #5833ff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+  }
+
+a{
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.psw{
+    text-align : right;
+    margin-top: 8px;
+    display: block;
+}
+
+
+/* CSS untuk tombol "Sign in with Google" */
+.google-btn {
+    text-align: center;
+    margin-bottom: 20px;
+    padding:0px
+}
+
+.google-icon-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.google-icon {
+    width: 24px; /* Ubah ukuran sesuai kebutuhan Anda */
+    height: 24px; /* Ubah ukuran sesuai kebutuhan Anda */
+    vertical-align: middle;
+    margin-right: 10px; /* Jarak antara ikon dan teks */
+}
+
+.btn-text {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: bold;
+}

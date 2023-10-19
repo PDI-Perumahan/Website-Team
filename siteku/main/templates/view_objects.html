@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview</title>
+</head>
+<body>
+    <!-- view_objects.html -->
+
+<!-- {% for obj in objects %}
+<p>{{ obj.name }}</p>
+<p>{{ obj.description }}</p>
+{% endfor %} -->
+
+{% for obj in objects %}
+    <img src="{{ obj.image.url }}" alt="Uploaded Image">
+{% endfor %}
+</body>
+</html>
