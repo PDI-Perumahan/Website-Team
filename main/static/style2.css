@@ -142,16 +142,38 @@ h1{
   p {
     font-size: 20px;
     line-height: 30px;
+    color: black;
   }
 /* End of Header */
 
-.list_assets img{
+.asset-item {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 30px;
+  text-align: center;  
+  max-width: auto; /* sesuai dengan tinggi gambar yang Anda tentukan */
+  align-items: center;
+}
+
+.asset-item img {
   height: 300px;
-  display: inline;
-  margin: 20px;
+  width: auto; 
+  max-width: 100%; 
   border-radius: 20px;
   border: 3px solid black;
 }
+
+.image-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
+  max-width: calc(100% - 10px); /* memberi sedikit ruang agar teks tidak tepat menyentuh batas gambar */
+  text-align: center;
+  margin-top: 10px;
+}
+
+
 
 .list_galleries img{
   height: 300px;

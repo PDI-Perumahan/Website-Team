@@ -32,6 +32,3 @@ def assets(request):
         form = UploadObjectForm()
     return render(request, 'assets.html', {'form': form,'objects':objects})
 
-# def view_objects(request):
-#     objects = UploadedObjects.objects.all()
-#     return render(request, 'view_objects.html', {'objects': objects})

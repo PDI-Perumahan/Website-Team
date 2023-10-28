@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 {% load static %}
+{% load custom_filters%}
 <body>
     <div class="header">
         <a href="home" class="logo"><img src="../static/image/logo_protel.png" alt=""></a>
@@ -32,10 +33,13 @@
     <div>
         <div class="list_assets">
             {% for object in objects %}
+            <div class="asset-item">
                 <img src="{{object.image.url}}" alt="Uploaded image" >
+                <p class="image-name">{{ object.image.name|basename }}</p>
+            </div>
+                
             {% endfor %}
         </div>
-
     </div>
 
 
