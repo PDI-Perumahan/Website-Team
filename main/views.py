@@ -22,15 +22,16 @@ def gallery(request):
     return HttpResponse(template.render())
 
 def assets(request):
+    objects = UploadedObjects.objects.all()
     if request.method == 'POST':
         form = UploadObjectForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("view_objects")
+            return redirect("assets")
     else:
         form = UploadObjectForm()
-    return render(request, 'assets.html', {'form': form})
+    return render(request, 'assets.html', {'form': form,'objects':objects})
 
-def view_objects(request):
-    objects = UploadedObjects.objects.all()
-    return render(request, 'view_objects.html', {'objects': objects})
+# def view_objects(request):
+#     objects = UploadedObjects.objects.all()
+#     return render(request, 'view_objects.html', {'objects': objects})

@@ -31,8 +31,8 @@
 
     <div>
         <div class="list_assets">
-            {% for _ in "012346" %}
-                <img src="{% static 'image\retro-computer-desk-arrangement.jpg' %}" alt="Repeated Image">
+            {% for object in objects %}
+                <img src="{{object.image.url}}" alt="Uploaded image" >
             {% endfor %}
         </div>
 
