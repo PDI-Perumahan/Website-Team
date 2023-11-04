@@ -146,41 +146,74 @@ h1{
   }
 /* End of Header */
 
-.asset-item {
-  display: inline-flex;
-  flex-direction: column;
-  margin: 30px;
-  text-align: center;  
-  max-width: auto; /* sesuai dengan tinggi gambar yang Anda tentukan */
+.custom-upload-form {
+  display: flex;
   align-items: center;
+  gap: 10px;
+  color: black;
+  padding: 20px;
 }
 
-.asset-item img {
-  height: 300px;
-  width: auto; 
-  max-width: 100%; 
-  border-radius: 20px;
-  border: 3px solid black;
+.custom-upload-form input[type="file"] {
+  flex-grow: 1;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
-.image-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 80%;
-  max-width: calc(100% - 10px); /* memberi sedikit ruang agar teks tidak tepat menyentuh batas gambar */
+.custom-upload-form button {
+  padding: 5px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.custom-upload-form button:hover {
+  background-color: #0056b3;
+}
+
+
+.object-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
   text-align: center;
-  margin-top: 10px;
 }
 
-
-
-.list_galleries img{
-  height: 300px;
-  display: inline;
-  margin: 20px;
-  border-radius: 30px;
+.object-table th, .object-table td {
+  border: 1px solid black;
+  padding: 8px;
 }
+
+.object-table th {
+  background-color: lightblue;
+}
+
+.object-actions a {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+  margin-right: 5px;
+}
+
+.object-actions a:hover {
+  background-color: #0056b3;
+}
+
+.delete-action {
+  background-color: #dc3545;
+}
+
+.delete-action:hover {
+  background-color: #b22234;
+}
+
 
 /* Start of Footer */
 .footer{

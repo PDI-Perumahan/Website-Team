@@ -1,9 +1,8 @@
 # forms.py
-
 from django import forms
-from .models import UploadedObjects
+from .models import Model3D
 
-class UploadObjectForm(forms.ModelForm):
+class Model3DForm(forms.ModelForm):
     class Meta:
-        model = UploadedObjects
-        fields = ['image']
+        model = Model3D
+        fields = ['model_obj']

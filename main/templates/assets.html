@@ -24,28 +24,40 @@
         <h1>Assets</h1>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="custom-upload-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.media }}
+        <div>
+            {{ form.model_obj.label_tag }} {{ form.model_obj }}
+        </div>
         <button type="submit">Upload</button>
     </form>
-
-    <div>
-        <div class="list_assets">
+    
+    <table class="object-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama File</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for object in objects %}
-            <div class="asset-item">
-                <img src="{{object.image.url}}" alt="Uploaded image" >
-                <p class="image-name">{{ object.image.name|basename }}</p>
-            </div>
-                
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ object.model_obj.url|basename }}</td>
+                <td class="object-actions">
+                    <!-- <a href="{% url 'view' object.id}" onclick="load3DObject('{{ object.model_obj.url }}')">Lihat OBJ</a> -->
+                    <a href="{% url 'view' object.id %}" target="_blank">Lihat OBJ</a>
+                    <a href="{% url 'delete_object' object.id %}" class="delete-action" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                </td>
+            </tr>
             {% endfor %}
-        </div>
-    </div>
+        </tbody>
+    </table>
 
 
 
-
-    <!-- Footer -->
     <div class="footer">
         <p>Copyright <i class="fa fa-copyright"></i> ProtelSolidPerjuangan</p>
     </div>
