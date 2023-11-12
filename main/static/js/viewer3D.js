@@ -27,7 +27,7 @@ function setupEnvironment() {
   topLight.position.set(500, 500, 500);
   topLight.castShadow = true;
   scene.add(topLight);
-  camera.position.set(2, 0, 0);
+  camera.position.set(5, 0, 0);
 }
 
 // Function to load the model
@@ -38,6 +38,7 @@ export function loadModel(url) {
   const loader = new GLTFLoader();
   loader.load(url, (gltf) => {
     const model = gltf.scene;
+    model.position.set(0,1,0);
     scene.add(model);
 
     // Update the controls target

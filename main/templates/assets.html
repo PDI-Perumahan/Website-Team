@@ -6,6 +6,7 @@
     <title>Assets</title>
     <link rel="stylesheet" href="../static/style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://kit.fontawesome.com/a076d05399.js"> -->
 </head>
 {% load static %}
 {% load custom_filters%}
@@ -48,7 +49,7 @@
                 <td>{{ object.model_obj.url|basename }}</td>
                 <td class="object-actions">
                     <!-- <a href="{% url 'view' object.id}" onclick="load3DObject('{{ object.model_obj.url }}')">Lihat OBJ</a> -->
-                    <a href="{% url 'view' object.id %}" target="_blank">Lihat OBJ</a>
+                    <a href="{% url 'view' object.id %}" target="_blank">Lihat 3D Model</a>
                     <a href="{% url 'delete_object' object.id %}" class="delete-action" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                 </td>
             </tr>

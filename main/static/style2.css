@@ -221,6 +221,9 @@ h1{
     background-color: black;
     padding: 12px;
     color: red;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   }
   
   .footer p.fa-copyright{
