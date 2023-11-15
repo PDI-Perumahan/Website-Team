@@ -35,10 +35,10 @@ def assets(request):
             model = form.save(commit=False)
             model.save()
 
-            if model.model_obj:
-                obj_path = model.model_obj.path
-                json_path = obj_path.replace('.obj', '.json')
-                convert_obj_to_json(obj_path, json_path)
+            # if model.model_obj:
+            #     obj_path = model.model_obj.path
+            #     json_path = obj_path.replace('.obj', '.json')
+            #     convert_obj_to_json(obj_path, json_path)
                 # conversion_result = convert_obj_to_json(obj_path, json_path)
 
                 # if conversion_result.get('status') == 'success':
@@ -60,14 +60,14 @@ def assets(request):
         form = Model3DForm()
     return render(request, 'assets.html', {'form': form, 'objects': objects})
 
-def convert_obj_to_json(obj_path, json_path):
-    cmd = ['node', 'main/scripts/convert_obj_to_json.js', obj_path, json_path]
-    try:
-        subprocess.run(cmd, check=True)
-    except subprocess.CalledProcessError as e:
-        # Tangani kesalahan jika ada kesalahan dalam proses konversi
-        # Misalnya, tampilkan pesan kesalahan atau lakukan tindakan lain yang sesuai
-        print(f"Error during conversion: {e}")
+# def convert_obj_to_json(obj_path, json_path):
+#     cmd = ['node', 'main/scripts/convert_obj_to_json.js', obj_path, json_path]
+#     try:
+#         subprocess.run(cmd, check=True)
+#     except subprocess.CalledProcessError as e:
+#         # Tangani kesalahan jika ada kesalahan dalam proses konversi
+#         # Misalnya, tampilkan pesan kesalahan atau lakukan tindakan lain yang sesuai
+#         print(f"Error during conversion: {e}")
 
 # def convert_obj_to_json(obj_path, json_path):
 #     try:

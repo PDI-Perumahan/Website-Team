@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setClearColor(0x87CEEB); // 0xFFFFFF adalah kode warna hexadecimal untuk putih
+
 
 // Append the renderer to the DOM
 document.body.appendChild(renderer.domElement);
@@ -36,9 +38,18 @@ export function loadModel(url) {
 
   // Initialize the GLTFLoader
   const loader = new GLTFLoader();
+  let mixer;
   loader.load(url, (gltf) => {
     const model = gltf.scene;
     model.position.set(0,1,0);
+
+    // // Access animations from the loaded model
+    // mixer = new THREE.AnimationMixer(model);
+    // const action = mixer.clipAction(gltf.animations[0]); // Assuming the first animation in the array
+
+    // // Play the animation
+    // action.play();
+
     scene.add(model);
 
     // Update the controls target
@@ -49,6 +60,11 @@ export function loadModel(url) {
     function animate() {
       requestAnimationFrame(animate);
       controls.update(); // Update controls every frame
+
+      // if (mixer) {
+      //   mixer.update(0.0167); // Update the mixer with the time delta
+      // }
+
       renderer.render(scene, camera);
     }
 
