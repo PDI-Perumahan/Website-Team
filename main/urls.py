@@ -9,6 +9,6 @@ urlpatterns = [
     path("gallery", views.gallery, name="gallery"),
     path("assets", views.assets, name="assets"),
     path("view/<int:object_id>/",views.view_result, name="view"),
-    path('delete_object/<int:pk>/', views.delete_object, name='delete_object'),
+    path('delete_object/<int:object_id>/', views.delete_object, name='delete_object'),
 
 ]

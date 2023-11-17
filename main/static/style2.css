@@ -146,6 +146,10 @@ h1{
   }
 /* End of Header */
 
+.main-container {
+  padding-bottom: 70px;
+}
+
 .custom-upload-form {
   display: flex;
   align-items: center;

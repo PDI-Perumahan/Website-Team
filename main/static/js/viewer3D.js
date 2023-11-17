@@ -38,17 +38,9 @@ export function loadModel(url) {
 
   // Initialize the GLTFLoader
   const loader = new GLTFLoader();
-  let mixer;
   loader.load(url, (gltf) => {
     const model = gltf.scene;
     model.position.set(0,1,0);
-
-    // // Access animations from the loaded model
-    // mixer = new THREE.AnimationMixer(model);
-    // const action = mixer.clipAction(gltf.animations[0]); // Assuming the first animation in the array
-
-    // // Play the animation
-    // action.play();
 
     scene.add(model);
 
@@ -60,10 +52,6 @@ export function loadModel(url) {
     function animate() {
       requestAnimationFrame(animate);
       controls.update(); // Update controls every frame
-
-      // if (mixer) {
-      //   mixer.update(0.0167); // Update the mixer with the time delta
-      // }
 
       renderer.render(scene, camera);
     }

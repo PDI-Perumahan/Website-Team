@@ -5,11 +5,10 @@ from .models import Model3D
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.core.files import File
+from django.conf import settings
 
 import json
-from django.http import JsonResponse
 import os
-import subprocess
 
 def main(request):
     template = loader.get_template('home.html')
@@ -29,59 +28,51 @@ def gallery(request):
 
 def assets(request):
     objects = Model3D.objects.all()
+
     if request.method == 'POST':
         form = Model3DForm(request.POST, request.FILES)
         if form.is_valid():
-            model = form.save(commit=False)
-            model.save()
+            model_3d = form.save(commit=False)
 
-            # if model.model_obj:
-            #     obj_path = model.model_obj.path
-            #     json_path = obj_path.replace('.obj', '.json')
-            #     convert_obj_to_json(obj_path, json_path)
-                # conversion_result = convert_obj_to_json(obj_path, json_path)
+            # Set the custom filename
+            custom_filename = form.cleaned_data.get('custom_filename')
+            model_3d.custom_filename = custom_filename
 
-                # if conversion_result.get('status') == 'success':
-                #     # Simpan path JSON ke model Model3D jika diperlukan
-                #     model.json_path = conversion_result.get('json_path')
+            # # Set the GLB filename using MEDIA_ROOT
+            # glb_filename = f'{custom_filename}.glb'
+            # model_3d.file_3d.name = glb_filename
+            # print("atas" + model_3d.file_3d.name)
 
-                #     # Simpan file JSON hasil konversi
-                #     with open(json_path, 'rb') as json_file:
-                #         model.json_file.save('nama_file.json', File(json_file))
+            # Set the JSON filename using MEDIA_ROOT
+            json_filename = f'{custom_filename}.json'
+            model_3d.custom_json_filename = os.path.join('models/obj', json_filename)
+            
 
-                #     model.save()
-                # else:
-                #     # Tangani kesalahan jika ada kesalahan dalam konversi
-                #     return HttpResponse('Error during conversion: ' + conversion_result.get('message'), status=500)
+            # Create a dictionary with relevant data for JSON representation
+            json_data = {
+                'custom_filename': model_3d.custom_filename,
+                'size_x': model_3d.size_x,
+                'size_y': model_3d.size_y,
+                'size_z': model_3d.size_z,
+            }
+            # print(" bawah" + os.path.join(settings.MEDIA_ROOT, 'models/obj', glb_filename))
 
+            # Save the GLB file
+            # with open(os.path.join(settings.MEDIA_ROOT, 'models/obj', glb_filename), 'wb') as glb_file:
+            #     for chunk in model_3d.file_3d.chunks():
+            #         glb_file.write(chunk)
 
-            return redirect('assets')  # Gantikan dengan URL tujuan Anda setelah berhasil mengunggah.
+            # Save the JSON data to a file
+            with open(os.path.join(settings.MEDIA_ROOT, 'models/obj', json_filename), 'w') as json_file:
+                json.dump(json_data, json_file, indent=2)
+
+            model_3d.save()
+
+            return redirect('assets')  # Replace with your actual redirect URL
     else:
         form = Model3DForm()
+
     return render(request, 'assets.html', {'form': form, 'objects': objects})
-
-# def convert_obj_to_json(obj_path, json_path):
-#     cmd = ['node', 'main/scripts/convert_obj_to_json.js', obj_path, json_path]
-#     try:
-#         subprocess.run(cmd, check=True)
-#     except subprocess.CalledProcessError as e:
-#         # Tangani kesalahan jika ada kesalahan dalam proses konversi
-#         # Misalnya, tampilkan pesan kesalahan atau lakukan tindakan lain yang sesuai
-#         print(f"Error during conversion: {e}")
-
-# def convert_obj_to_json(obj_path, json_path):
-#     try:
-#         # Ganti perintah berikut sesuai dengan cara Anda menjalankan skrip JavaScript yang mengonversi OBJ ke JSON
-#         cmd = ['node', 'main/scripts/convert_obj_to_json.js', obj_path, json_path]
-
-#         # Jalankan perintah konversi
-#         subprocess.run(cmd, check=True)
-
-#         return {'status': 'success', 'json_path': json_path}
-#     except subprocess.CalledProcessError as e:
-#         # Tangani kesalahan jika ada kesalahan dalam proses konversi
-#         error_message = f"Error during conversion: {e}"
-#         return {'status': 'error', 'message': error_message}
 
 
 
@@ -91,7 +82,10 @@ def view_result(request, object_id):
     # Menyediakan path file objek 3D ke template
     return render(request, 'view_objects.html', {'obj_3d': obj_3d})
 
-def delete_object(request, pk):
-    obj = get_object_or_404(Model3D, pk=pk)
-    obj.delete()
+def delete_object(request, object_id):
+    model_object = get_object_or_404(Model3D, pk=object_id)
+
+    # Hapus objek dari database
+    model_object.delete()
+
     return redirect('assets')  # Gantikan dengan URL tujuan Anda setelah menghapus objek.

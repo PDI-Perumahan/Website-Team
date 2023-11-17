@@ -3,7 +3,7 @@
     {% load custom_filters%}
 	<head>
 		<meta charset="utf-8">
-		<title>View {{ obj_3d.model_obj.url|basename }}</title>
+		<title>View {{ obj_3d.file_3d.url|basename }}</title>
 		<style>
 			body { margin: 0; }
 		</style>
@@ -16,18 +16,17 @@
 		  }
 		}
 	  </script>
-      {% load static %}
+      
       
 	</head>
 	<body>
         <div id="container"></div>
         <!-- Pass the object URL to the JavaScript module -->
         <script type="module">
-            // import { loadModel } from '{% static 'js/viewer3D.js' %}';
-            import { loadModel } from '../../static/js/viewer3D.js';
-            // Call the loadModel function and pass the object URL from the Django context
-            loadModel('{{ obj_3d.model_obj.url }}');
-        </script>
+			console.log('{{ obj_3d.file_3d.url }}');
+			import { loadModel } from '../../static/js/viewer3D.js';
+			loadModel('{{ obj_3d.file_3d.url }}');
+		</script>
 
         <!-- <p>{{ obj_3d.model_obj.url }}</p> -->
     </body>
