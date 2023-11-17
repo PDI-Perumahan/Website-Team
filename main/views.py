@@ -23,8 +23,15 @@ def register(request):
     return HttpResponse(template.render())
 
 def gallery(request):
-    template = loader.get_template('gallery.html')
-    return HttpResponse(template.render())
+    json_files = []
+
+    directory = os.path.join(settings.MEDIA_ROOT, '3d-env')
+
+    # Loop melalui semua file di direktori
+    for filename in os.listdir(directory):
+        if filename.endswith(".json"):
+            json_files.append(filename)
+    return render(request, 'gallery.html', {'json_files': json_files})
 
 def assets(request):
     objects = Model3D.objects.all()
@@ -38,11 +45,6 @@ def assets(request):
             custom_filename = form.cleaned_data.get('custom_filename')
             model_3d.custom_filename = custom_filename
 
-            # # Set the GLB filename using MEDIA_ROOT
-            # glb_filename = f'{custom_filename}.glb'
-            # model_3d.file_3d.name = glb_filename
-            # print("atas" + model_3d.file_3d.name)
-
             # Set the JSON filename using MEDIA_ROOT
             json_filename = f'{custom_filename}.json'
             model_3d.custom_json_filename = os.path.join('models/obj', json_filename)
@@ -55,12 +57,6 @@ def assets(request):
                 'size_y': model_3d.size_y,
                 'size_z': model_3d.size_z,
             }
-            # print(" bawah" + os.path.join(settings.MEDIA_ROOT, 'models/obj', glb_filename))
-
-            # Save the GLB file
-            # with open(os.path.join(settings.MEDIA_ROOT, 'models/obj', glb_filename), 'wb') as glb_file:
-            #     for chunk in model_3d.file_3d.chunks():
-            #         glb_file.write(chunk)
 
             # Save the JSON data to a file
             with open(os.path.join(settings.MEDIA_ROOT, 'models/obj', json_filename), 'w') as json_file:
@@ -89,3 +85,6 @@ def delete_object(request, object_id):
     model_object.delete()
 
     return redirect('assets')  # Gantikan dengan URL tujuan Anda setelah menghapus objek.
+
+def view_3d_env(request, filename):
+    return render(request, 'view_3d_env.html', {'filename': filename})

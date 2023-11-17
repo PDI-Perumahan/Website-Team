@@ -47,7 +47,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ object.file_3d.url|basename }}</td>
-                <td> {{object.size_x}}, {{object.size_y}}, {{object.size_z}} </td>
+                <td>{{object.size_x}}, {{object.size_y}}, {{object.size_z}}</td>
                 <td class="object-actions">
                     <a href="{% url 'view' object.id %}" target="_blank">Lihat 3D Model</a>
                     <a href="{% url 'delete_object' object.id %}" class="delete-action" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>

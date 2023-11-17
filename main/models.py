@@ -29,3 +29,4 @@ class Model3D(models.Model):
             os.remove(json_file_path)
 
         super(Model3D, self).delete(*args, **kwargs)  # Call the "real" delete() method.
+
