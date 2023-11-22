@@ -218,6 +218,101 @@ h1{
   background-color: #b22234;
 }
 
+.object-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  gap: 30px;
+}
+
+.object-box {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  /* border: 1px solid #000; */
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  box-shadow: 5px 5px 10px rgb(119, 119, 119);
+  flex-direction: column;
+}
+
+.model-display{
+  width: 300px;
+  height: 170px;
+}
+
+.model-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 94%; /* Adjust width as needed */
+  padding: 0 10px; /* Add padding as needed */
+  font-size: 14px;
+  color: black;
+}
+
+.filename {
+  text-align: left;
+  float: left; /* For additional left alignment if necessary */
+}
+
+.size {
+  text-align: right;
+  float: right; /* For additional right alignment if necessary */
+}
+
+/* Styles for the drop button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Styles for the dropdown container */
+.dropdown {
+  position: absolute;
+  top: 0;
+  right: 7px;
+  display: inline-block;
+}
+
+/* Styles for the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 30px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  font-size: 14px;
+}
+
+/* Styles for the links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Highlight the links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content when the dropdown button is hovered over */
+.show {
+  display: block;
+}
+
 
 /* Start of Footer */
 .footer{

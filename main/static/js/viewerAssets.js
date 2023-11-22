@@ -3,17 +3,24 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // Initialize the scene, camera, and renderer
+export function loadModel(url, object_id) {
+const doc_id = document.getElementById(object_id);
+
+
+const width = 300;
+const height = 170;
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setClearColor(0x87CEEB); // 0xFFFFFF adalah kode warna hexadecimal untuk putih
 
 
 // Append the renderer to the DOM
-document.body.appendChild(renderer.domElement);
+doc_id.appendChild(renderer.domElement);
 
 // Adjust the renderer size
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(width, height);
 
 // Initialize the controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -23,18 +30,18 @@ controls.target.set(0, 0, 0);
 controls.update();
 
 // Function to set up the environment
-function setupEnvironment() {
+// function setupEnvironment() {
   scene.add(new THREE.HemisphereLight(0xffffff, 0x666666, 1.2));
   const topLight = new THREE.DirectionalLight(0xffffff, 1);
   topLight.position.set(500, 500, 500);
   topLight.castShadow = true;
   scene.add(topLight);
   camera.position.set(5, 0, 0);
-}
+// }
 
 // Function to load the model
-export function loadModel(url) {
-  setupEnvironment();
+
+//   setupEnvironment();
 
   // Initialize the GLTFLoader
   const loader = new GLTFLoader();
@@ -63,8 +70,8 @@ export function loadModel(url) {
 }
 
 // Handle window resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+// window.addEventListener('resize', () => {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// });
