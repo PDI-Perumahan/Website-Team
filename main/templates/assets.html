@@ -42,10 +42,10 @@
     <form method="post" enctype="multipart/form-data" class="custom-upload-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Upload 3D Model</button>
+        <button type="submit" name="upload_file">Upload 3D Model</button>
     </form>
 
-   <div class="object-container">
+<div class="object-container">
     {% for object in objects %}
     <div class="object-box">
         <div class="model-display"  id="{{object.id}}">
@@ -64,35 +64,55 @@
             <button onclick="myFunction('{{object.id}}')" class="dropbtn">...</button>
             <div id="dropdown-{{object.id}}" class="dropdown-content">
                 <a href="{% url 'view' object.id %}" target="_blank">Lihat</a>
-                <a href="#about">Edit</a>
+                <!-- <a href="#edit-{{object.file_3d.url|basename}}" onclick="openForm('{{object.id}}')">Edit</a> -->
+                <a href="{% url 'edit' object.id %}" target="_blank">Edit</a>
+                <div class="form-popup" id="myForm-{{object.id}}">
+                    <form method="post" enctype="multipart/form-data" class="form_edit-container">
+                        {% csrf_token %}
+                        {{ form_edit.as_p }}
+                        <button type="submit" name="Edit_file">Simpan</button>
+                        <button type="button" class="btn cancel" onclick="closeForm('{{object.id}}')">Tutup/button>
+                    </form>
+                </div>
                 <a href="{% url 'delete_object' object.id %}" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
             </div>
         </div>
-        
-        <script>
-            function myFunction(objectId) {
-                document.getElementById("dropdown-" + objectId).classList.toggle("show");
-            }
-
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
-        </script>
     </div>
     {% endfor %}
-   </div>
 </div>
 
+<!-- dropdown content -->
+<script>
+    function myFunction(objectId) {
+        document.getElementById("dropdown-" + objectId).classList.toggle("show");
+    }
 
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+<!-- end dropdown content -->
+
+<!-- edit content -->
+<script>
+    function openForm(objectId) {
+      document.getElementById("myForm-" + objectId).style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm-" + objectId).style.display = "none";
+    }
+</script>
+<!-- end edit content -->
     <div class="footer">
         <p>Copyright <i class="fa fa-copyright"></i> ProtelSolidPerjuangan</p>
     </div>

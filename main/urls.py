@@ -11,5 +11,6 @@ urlpatterns = [
     path("view/<int:object_id>/",views.view_result, name="view"),
     path('delete_object/<int:object_id>/', views.delete_object, name='delete_object'),
     path('view_3d_env/<str:filename>/', views.view_3d_env, name='view_3d_env'),
+    path("edit/<int:object_id>/",views.edit_file3D, name="edit"),
 
 ]

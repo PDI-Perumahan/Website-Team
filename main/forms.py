@@ -6,3 +6,8 @@ class Model3DForm(forms.ModelForm):
     class Meta:
         model = Model3D
         fields = ['file_3d', 'size_x', 'size_y', 'size_z', 'custom_filename']
+
+class Edit3Dfile(forms.ModelForm):
+    class Meta:
+        model = Model3D
+        fields = ['size_x', 'size_y', 'size_z', 'custom_filename']

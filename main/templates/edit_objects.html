@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load custom_filters%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{ obj_3d.file_3d.url|basename }} </title>
+</head>
+<body>
+<h2>Edit File</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_edit.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    
+</body>
+</html>
