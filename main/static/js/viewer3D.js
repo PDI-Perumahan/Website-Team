@@ -9,6 +9,7 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setClearColor(0x87CEEB); // 0xFFFFFF adalah kode warna hexadecimal untuk putih
 
 
+
 // Append the renderer to the DOM
 document.body.appendChild(renderer.domElement);
 
@@ -20,6 +21,10 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 // controls.minPolarAngle = Math.PI * 0.5; // Batas bawah (90 derajat dalam radian)
 // controls.maxPolarAngle = Math.PI * 0.5; // Batas atas (90 derajat dalam radian)
+controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+controls.dampingFactor = 0.25;
+controls.screenSpacePanning = false;
+// controls.maxPolarAngle = Math.PI / 2;
 controls.update();
 
 // Function to set up the environment
@@ -30,6 +35,7 @@ function setupEnvironment() {
   topLight.castShadow = true;
   scene.add(topLight);
   camera.position.set(5, 0, 0);
+  camera.lookAt(0, 0, 0);
 }
 
 // Function to load the model
@@ -40,7 +46,19 @@ export function loadModel(url) {
   const loader = new GLTFLoader();
   loader.load(url, (gltf) => {
     const model = gltf.scene;
-    model.position.set(0,1,0);
+    model.position.set(0,-1,0);
+
+    // Hitung bounding box dari model
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    let scale = 1 / Math.max(size.x, size.y, size.z);
+    //Tentukan skala minimum yang diizinkan
+    const minScale = 0.2; // Misalnya, 0.1 ini adalah nilai skala minimum yang diizinkan
+    // Pastikan skala tidak lebih kecil dari skala minimum
+    scale = Math.max(scale, minScale);
+   
+    // Skalakan model
+    model.scale.set(scale, scale, scale);
 
     scene.add(model);
 
@@ -52,6 +70,11 @@ export function loadModel(url) {
     function animate() {
       requestAnimationFrame(animate);
       controls.update(); // Update controls every frame
+
+      // var targetPosition = new THREE.Vector3(objekTertentu.position.x, objekTertentu.position.y, objekTertentu.position.z);
+
+      // Atur kamera untuk selalu menghadap objek
+      // camera.lookAt(targetPosition);
 
       renderer.render(scene, camera);
     }

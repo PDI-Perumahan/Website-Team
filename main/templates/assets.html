@@ -64,16 +64,7 @@
             <button onclick="myFunction('{{object.id}}')" class="dropbtn">...</button>
             <div id="dropdown-{{object.id}}" class="dropdown-content">
                 <a href="{% url 'view' object.id %}" target="_blank">Lihat</a>
-                <!-- <a href="#edit-{{object.file_3d.url|basename}}" onclick="openForm('{{object.id}}')">Edit</a> -->
                 <a href="{% url 'edit' object.id %}" target="_blank">Edit</a>
-                <div class="form-popup" id="myForm-{{object.id}}">
-                    <form method="post" enctype="multipart/form-data" class="form_edit-container">
-                        {% csrf_token %}
-                        {{ form_edit.as_p }}
-                        <button type="submit" name="Edit_file">Simpan</button>
-                        <button type="button" class="btn cancel" onclick="closeForm('{{object.id}}')">Tutup/button>
-                    </form>
-                </div>
                 <a href="{% url 'delete_object' object.id %}" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
             </div>
         </div>

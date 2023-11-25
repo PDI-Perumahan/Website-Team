@@ -15,19 +15,16 @@ const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setClearColor(0x87CEEB); // 0xFFFFFF adalah kode warna hexadecimal untuk putih
 
+// Initialize the controls
+const controls = new OrbitControls(camera, renderer.domElement);
+// controls.minPolarAngle = Math.PI * 0.5; // Batas bawah (90 derajat dalam radian)
+// controls.maxPolarAngle = Math.PI * 0.5; // Batas atas (90 derajat dalam radian)
 
 // Append the renderer to the DOM
 doc_id.appendChild(renderer.domElement);
 
 // Adjust the renderer size
 renderer.setSize(width, height);
-
-// Initialize the controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 0, 0);
-// controls.minPolarAngle = Math.PI * 0.5; // Batas bawah (90 derajat dalam radian)
-// controls.maxPolarAngle = Math.PI * 0.5; // Batas atas (90 derajat dalam radian)
-controls.update();
 
 // Function to set up the environment
 // function setupEnvironment() {
@@ -36,7 +33,7 @@ controls.update();
   topLight.position.set(500, 500, 500);
   topLight.castShadow = true;
   scene.add(topLight);
-  camera.position.set(5, 0, 0);
+  camera.position.set(0, 0, 2);
 // }
 
 // Function to load the model
@@ -47,7 +44,20 @@ controls.update();
   const loader = new GLTFLoader();
   loader.load(url, (gltf) => {
     const model = gltf.scene;
-    model.position.set(0,1,0);
+    model.position.set(0,0,0);
+    // Hitung bounding box dari model
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    let scale = 1 / Math.max(size.x, size.y, size.z);
+    //Tentukan skala minimum yang diizinkan
+    const minScale = 0.125;
+    
+    // Pastikan skala tidak lebih kecil dari skala minimum
+    scale = Math.max(scale, minScale);
+    console.log(url+ " " + scale);
+
+    // Skalakan model
+    model.scale.set(scale, scale, scale);
 
     scene.add(model);
 
