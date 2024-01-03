@@ -104,6 +104,7 @@ export async function PUT(req: Request) {
     let updateData: Partial<Assets> = {};
 
     const { searchParams } = new URL(req.url);
+    console.log(searchParams.get("id"));
     const id = searchParams.get("id");
 
     if (!id) {
@@ -154,9 +155,11 @@ export async function PUT(req: Request) {
     if (validatedData.modelFile && validatedData.thumbnail) {
       await client.storage.emptyBucket(path.join(BUCKET_NAME, MODEL_PATHS, id));
 
+      const modelFilename = `model-${Date.now()}.glb`;
+
       const { data: resultModel, error: errorModel } = await client.storage
         .from(path.join(BUCKET_NAME, MODEL_PATHS, id))
-        .update("model.glb", await validatedData.modelFile!.arrayBuffer());
+        .upload(modelFilename, await validatedData.modelFile!.arrayBuffer());
 
       if (errorModel) {
         return new Response(
@@ -168,11 +171,13 @@ export async function PUT(req: Request) {
         );
       }
 
+      const thumbnailFilename = `thumbnail-${Date.now()}.png`;
+
       const { data: resultThumbnail, error: errorThumbnail } =
         await client.storage
           .from(path.join(BUCKET_NAME, MODEL_PATHS, id))
-          .update(
-            "thumbnail.png",
+          .upload(
+            thumbnailFilename,
             await validatedData.thumbnail!.arrayBuffer()
           );
 
@@ -209,8 +214,6 @@ export async function PUT(req: Request) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 });
     }
-
-    console.log(error);
 
     return new Response(null, { status: 500 });
   }
