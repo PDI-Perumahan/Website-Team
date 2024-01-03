@@ -19,8 +19,8 @@ const objectSchema = z.object({
 export const sceneSchema = z.object({
   name: z.string(),
   scene: z.object({
-    wall: z.array(wallSchema),
-    object: z.array(objectSchema),
+    walls: z.array(wallSchema),
+    objects: z.array(objectSchema),
   }),
 });
 

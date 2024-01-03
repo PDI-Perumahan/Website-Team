@@ -106,13 +106,13 @@ const Model: React.FC<ModelProps> = ({
 
 interface SceneProps {
   jsonData: {
-    wall: Array<{
+    walls: Array<{
       id: number;
       start: { x: number; y: number };
       end: { x: number; y: number };
       colour: string;
     }>;
-    object: Array<{
+    objects: Array<{
       id: number;
       position: { x: number; y: number; z: number };
       rotation: { x: number; y: number; z: number };
@@ -127,7 +127,7 @@ const Scene: React.FC<SceneProps> = ({ jsonData }) => {
 
   useEffect(() => {
     const loadModels = async () => {
-      const modelPromises = jsonData.object.map((obj) =>
+      const modelPromises = jsonData.objects.map((obj) =>
         getModelFromObjectId(obj.objectId).then((modelUrl) => ({
           ...obj,
           modelUrl,
@@ -144,7 +144,7 @@ const Scene: React.FC<SceneProps> = ({ jsonData }) => {
   return (
     <>
       <Ground />
-      {jsonData.wall.map((wall, index) => (
+      {jsonData.walls.map((wall, index) => (
         <Wall
           key={index}
           start={wall.start}
@@ -176,13 +176,13 @@ const getModelFromObjectId = async (objectId: string) => {
 };
 
 export interface SceneRendererProps {
-  wall: Array<{
+  walls: Array<{
     id: number;
     start: { x: number; y: number };
     end: { x: number; y: number };
     colour: string;
   }>;
-  object: Array<{
+  objects: Array<{
     id: number;
     position: { x: number; y: number; z: number };
     rotation: { x: number; y: number; z: number };

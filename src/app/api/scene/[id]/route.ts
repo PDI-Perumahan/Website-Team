@@ -1,7 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { sceneSchema } from "../route";
+import { NextRequest } from "next/server";
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const id = params.id;
 
   const scenes = await prisma.scene.findUnique({
@@ -11,15 +15,16 @@ export async function GET({ params }: { params: { id: string } }) {
   return new Response(JSON.stringify(scenes), { status: 200 });
 }
 
-export async function PUT({
-  params,
-  request,
-}: {
-  params: { id: string };
-  request: Request;
-}) {
+export async function PUT(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: { id: string };
+  }
+) {
   const id = params.id;
-  const data = await request.json();
+  const data = await req.json();
 
   try {
     const parsedData = sceneSchema.parse(data);

@@ -182,7 +182,6 @@ export default function Home() {
     setIsUploading(true);
 
     try {
-      console.log("ini try")
       const result = await axios.put("/api/assets", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -192,8 +191,6 @@ export default function Home() {
         },
       });
 
-      console.log("ini erro:",result);
-
       if (result.status === 200) {
         toast({
           title: "Edit Success",
@@ -202,18 +199,6 @@ export default function Home() {
         await updateList();
       }
     } catch (error) {
-      console.log(error)
-      // console.error("Edit Failed:", error);
-      // let errorMessage = "Edit Failed";
-      // if (axios.isAxiosError(error)) {
-      //   if(error.response){
-      //     errorMessage = `Server responded with error: ${error.response.data}`;
-      //     console.error("Server error details:", error.response.data);
-      //   } else if(error.request){
-      //     errorMessage = "No response received from the server";
-      //     console.error("No response from the server");
-      //   }
-      // }
       toast({
         title: "Edit Failed",
         variant: "destructive",
