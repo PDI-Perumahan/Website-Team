@@ -7,16 +7,20 @@ import { Assets } from "@prisma/client";
 
 const FormDataSchema = z.object({
   name: z.string(),
-  modelFile: z.instanceof(File),
-  thumbnail: z.instanceof(File),
+  modelFile: z.any(),
+  thumbnail: z.any(),
   x: z.number(),
   y: z.number(),
   z: z.number(),
 });
 
 export async function POST(req: Request) {
+  console.log("IAM HERE")
+
   try {
     const data = await req.formData();
+
+    console.log(data);
 
     const validatedData = FormDataSchema.parse({
       name: data.get("name") as unknown as string,
